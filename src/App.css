@@ -1,0 +1,22 @@
+.codeforces-id-input {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    vertical-align: middle;
+    align-items: center;
+    height: 100vh;
+}
+.test{
+    background-color:#030404;
+}
+.loading{
+    color: white;
+}
+.codeforces-form {
+    display: flex;
+}
+
+#legend-container {
+    overflow: scroll;
+    height: 50%;
+}
