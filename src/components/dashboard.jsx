@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect,useRef} from "react";
 import axios from 'axios';
 
-import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
 import TextField from '@mui/material/TextField';
 
@@ -32,6 +31,7 @@ const CssTextField = styled(TextField)({
 
 
 const Dashboard = () => {
+  const valueRef = useRef('');
   const [userStatusData, setUserStatusData] = useState({});
   const [userRatingsData, setUserRatingsData] = useState({});
   const [codeForcesId, setCodeForcesId] = useState('');
@@ -79,6 +79,7 @@ const Dashboard = () => {
 
 
   const handleSubmission = () => {
+    setCodeForcesId(valueRef.current.value);
     if (codeForcesId) {
       setFormState('FETCHING_DATA');
       setUserRatingsState('FETCHING_DATA')
@@ -87,11 +88,11 @@ const Dashboard = () => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      setCodeForcesId(e.target.value);
+      setCodeForcesId(valueRef.current.value);
       setFormState('FETCHING_DATA');
       setUserRatingsState('FETCHING_DATA');
     } else {
-      setCodeForcesId(codeForcesId+e.key);
+      setCodeForcesId(valueRef.current.value);
     }
   }
 
@@ -105,15 +106,12 @@ const Dashboard = () => {
         className="codeforces-id-input"
       >
         <CssTextField
-          OutlineProps={{style:{color:"white"}}}
           InputLabelProps={{style : {color : 'grey'} }}
           InputProps={{style: {color: "white"}}}
           id="codeforces-id"
           label="Codeforces ID"
-          variant="outlined"
-          border="1"
-          borderColor="white"
           onKeyDown={handleKeyDown}
+          inputRef={valueRef}
         />
         <Button
           onClick={handleSubmission}
